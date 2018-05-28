@@ -1,13 +1,14 @@
 import http.client
 import urllib.request
 
-def search():
+def search(self,name):
+
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
     conn = http.client.HTTPSConnection(server)
 
-    encText = urllib.parse.quote("공포")
+    encText = urllib.parse.quote(name)
 
     conn.request("GET", "/v1/search/movie.json?genre=10&start=1&query="+encText, None,{"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
 
