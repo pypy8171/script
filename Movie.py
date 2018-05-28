@@ -1,17 +1,17 @@
 import http.client
 import urllib.request
 
-def search(self,name):
+def search():
 
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
     conn = http.client.HTTPSConnection(server)
 
-    encText = urllib.parse.quote(name)
+    encText = urllib.parse.quote("로맨스")
 
-    conn.request("GET", "/v1/search/movie.json?genre=10&start=1&query="+encText, None,{"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
-
+    conn.request("GET", "/v1/search/movie.json?movie&start=1&query="+encText, None,{"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    #
     req = conn.getresponse()
     print(req.status, req.reason)
     if int(req.status) == 200:
