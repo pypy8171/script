@@ -14,7 +14,7 @@ def InitTopText():
 
 def process():
     movie = (e1.get())
-    #e2.insert(0,movie)
+    e2.insert(0,movie)
     e2.search(0,movie)
 
 def reset():
