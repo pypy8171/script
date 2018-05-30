@@ -1,3 +1,4 @@
+import sys
 from tkinter import*
 from tkinter import font
 import tkinter.messagebox
@@ -5,23 +6,17 @@ import Movie
 import http.client
 import urllib.request
 from xml.dom.minidom import parse, parseString
+from xml.etree import ElementTree
+import json
+
+
+loopFlag =1
+xmlFD = -1
+BooksDoc = None
+
 #import json
 #from collections import OrderedDict
 #from pprint import pprint
-
-#def change_img():
-#    path = inputBox.get()
-#    img = PhotoImage(file = path)
-#    imageLabel.configure(image = img)
-#    imageLabel.image = img
-
-#photo = PhotoImage(file="5.png")  # 디폴트 이미지 파일
-#imageLabel = Label(window, image=photo)
-#imageLabel.pack()
-#inputBox = Entry(window)
-#inputBox.pack()
-#button = Button(window, text='클릭', command=change_img)
-#button.pack()
 
 window = Tk()
 window.geometry("400x600+750+200")
@@ -99,13 +94,15 @@ def InitRenderText():
     RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
     RenderText.configure(state='disabled')
 
+
 def SearchMovie():
+
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
     conn = http.client.HTTPSConnection(server)
 
-    encText = urllib.parse.quote("말죽거리")
+    encText = urllib.parse.quote("d")
 
     conn.request("GET", "/v1/search/movie.xml?movie&start=1&query=" + encText, None, {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
     #
@@ -117,6 +114,7 @@ def SearchMovie():
     if int(req.status) == 200:
         response_body = req.read().decode('utf-8')
         print(response_body)
+
         if response_body == None:
             print("에러")
         else:
@@ -124,15 +122,20 @@ def SearchMovie():
             parseData = parseString(response_body)
             InfoMovie = parseData.childNodes
             row = InfoMovie[0].childNodes
+            #parseData.toxml()
             print(parseData)
 
             for item in row:
                 print("들어감")
-                if item.nodeName=="xml":
-                    subitems = item.childNodes
-                    DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue,
+                #if item.nodeName=="title":
+
+                subitems = item.childNodes
+                #if subitems[6].firstChild is not None:
+                #    tel = str(subitems[6].firstChild.nodeValue)
+                DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue,
                                      subitems[2].firstChild.nodeValue, subitems[3].firstChild.nodeValue))
-                    print("데이터들어감")
+
+                print("데이터들어감")
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
@@ -161,6 +164,14 @@ def SearchMovie():
         RenderText.insert(INSERT, "\n")
         print("중간")
     print("끝")
+
+def image():
+    photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
+    imageLabel = Label(window, image=photo)
+    imageLabel.configure(image=photo)
+    imageLabel.image = photo
+    imageLabel.place(x=10,y=530)
+
 
 
 def practice():
@@ -198,7 +209,6 @@ InitTopText()
 InitSearchListBox()
 InitInputLabel()
 InitSearchButton()
-
 InitSortListBox()
-#change_img()
+image()
 window.mainloop()
