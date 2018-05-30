@@ -2,7 +2,12 @@ from tkinter import*
 from tkinter import font
 import tkinter.messagebox
 import Movie
-
+import http.client
+import urllib.request
+from xml.dom.minidom import parse, parseString
+#import json
+#from collections import OrderedDict
+#from pprint import pprint
 
 #def change_img():
 #    path = inputBox.get()
@@ -95,68 +100,67 @@ def InitRenderText():
     RenderText.configure(state='disabled')
 
 def SearchMovie():
-    import http.client
-    import urllib.request
-    from xml.dom.minidom import parse, parseString
-    import json
-
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
     conn = http.client.HTTPSConnection(server)
 
-    encText = urllib.parse.quote("로맨스")
+    encText = urllib.parse.quote("말죽거리")
 
-    conn.request("GET", "/v1/search/movie.xml?movie&start=1&query=" + encText, None,
-                 {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    conn.request("GET", "/v1/search/movie.xml?movie&start=1&query=" + encText, None, {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
     #
     req = conn.getresponse()
+    print(req.status, req.reason)
 
     global DataList
     DataList.clear()
-    if req.status == 200:
+    if int(req.status) == 200:
         response_body = req.read().decode('utf-8')
-        if response_body  == None:
+        print(response_body)
+        if response_body == None:
             print("에러")
         else:
             print("시작")
             parseData = parseString(response_body)
             InfoMovie = parseData.childNodes
             row = InfoMovie[0].childNodes
+            print(parseData)
+
             for item in row:
                 print("들어감")
-                if item.nodeName == "/":
+                if item.nodeName=="xml":
                     subitems = item.childNodes
-                    DataList.append((subitems[1].firstChild.nodeValue, subitems[0].firstChild.nodeValue, subitems[2].firstChild.nodeValue,subitems[3].firstChild.nodeValue))
+                    DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue,
+                                     subitems[2].firstChild.nodeValue, subitems[3].firstChild.nodeValue))
                     print("데이터들어감")
-            for i in range(len(DataList)):
-                RenderText.insert(INSERT, "[")
-                RenderText.insert(INSERT, i+1)
-                RenderText.insert(INSERT, "]")
-                RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i][0])
-                RenderText.insert(INSERT, "\n")
-                RenderText.insert(INSERT, "[")
-                RenderText.insert(INSERT, i + 1)
-                RenderText.insert(INSERT, "]")
-                RenderText.insert(INSERT, "링크 : ")
-                RenderText.insert(INSERT, DataList[i][1])
-                RenderText.insert(INSERT, "\n")
-                RenderText.insert(INSERT, "[")
-                RenderText.insert(INSERT, i + 1)
-                RenderText.insert(INSERT, "]")
-                RenderText.insert(INSERT, "tel : ")
-                RenderText.insert(INSERT, DataList[i][2])
-                RenderText.insert(INSERT, "\n")
-                RenderText.insert(INSERT, "[")
-                RenderText.insert(INSERT, i + 1)
-                RenderText.insert(INSERT, "]")
-                RenderText.insert(INSERT, "tel : ")
-                RenderText.insert(INSERT, DataList[i][3])
-                RenderText.insert(INSERT, "\n")
-                RenderText.insert(INSERT, "\n")
-                print("중간")
-            print("끝")
+    for i in range(len(DataList)):
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "API : ")
+        RenderText.insert(INSERT, DataList[i][0])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "주소 : ")
+        RenderText.insert(INSERT, DataList[i][1])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "결과 : ")
+        RenderText.insert(INSERT, DataList[i][2])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "시간 : ")
+        RenderText.insert(INSERT, DataList[i][3])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
+        print("중간")
+    print("끝")
 
 
 def practice():
