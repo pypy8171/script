@@ -3,6 +3,21 @@ from tkinter import font
 import tkinter.messagebox
 import Movie
 
+
+#def change_img():
+#    path = inputBox.get()
+#    img = PhotoImage(file = path)
+#    imageLabel.configure(image = img)
+#    imageLabel.image = img
+
+#photo = PhotoImage(file="5.png")  # 디폴트 이미지 파일
+#imageLabel = Label(window, image=photo)
+#imageLabel.pack()
+#inputBox = Entry(window)
+#inputBox.pack()
+#button = Button(window, text='클릭', command=change_img)
+#button.pack()
+
 window = Tk()
 window.geometry("400x600+750+200")
 DataList = []
@@ -55,9 +70,9 @@ def SearchButtonAction():
     global SearchListBox
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
-    iSearchIndex = SearchListBox.curselection()[0]
+    iSearchIndex = 0
     if iSearchIndex == 0:
-        pass#SearchLibrary()
+        SearchMovie()
     elif iSearchIndex == 1:
         pass#SearchGoodFoodService()
     elif iSearchIndex == 2:
@@ -78,6 +93,72 @@ def InitRenderText():
     RenderTextScrollbar.config(command=RenderText.yview)
     RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
     RenderText.configure(state='disabled')
+
+def SearchMovie():
+    import http.client
+    import urllib.request
+    from xml.dom.minidom import parse, parseString
+    # conn = http.client.HTTPConnection("openAPI.seoul.go.kr:8088")
+    # conn.request("GET","/6b4f54647867696c3932474d68794c/xml/GeoInfoLibrary/1/800")
+    # req = conn.getresponse()
+    server = "openapi.naver.com"
+    client_id = "YoEm7X7SqpQXmWrqJHKn"
+    client_secret = "MgMAZsI63y"
+    conn = http.client.HTTPSConnection(server)
+
+    encText = urllib.parse.quote("로맨스")
+
+    conn.request("GET", "/v1/search/movie.xml?movie&start=1&query=" + encText, None, {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    #
+    req = conn.getresponse()
+    print(req.status, req.reason)
+
+    global DataList
+    DataList.clear()
+    if req.status == 200:
+        BooksDoc = req.read().decode('utf-8')
+        if BooksDoc == None:
+            print("에러")
+        else:
+            print("됨")
+            parseData = parseString(BooksDoc)
+            GeoInfoLibrary = parseData.childNodes
+            row = GeoInfoLibrary[0].childNodes
+            for item in row:
+                if item.nodeName == "row":
+                    subitems = item.childNodes
+                    if subitems[0].firstChild.nodeValue == InputLabel.get():
+                        pass
+                    elif subitems[1].firstChild.nodeValue == InputLabel.get():
+                        pass
+                    if subitems[2].firstChlld is not None:
+                        name = str(subitems[2].firstChild.nodeValue)
+                        pass
+                        DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue, name))
+                    else:
+                        DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue, "-"))
+            print("된")
+            for i in range(len(DataList)):
+                RenderText.insert(INSERT, "[")
+                RenderText.insert(INSERT, i + 1)
+                RenderText.insert(INSERT, "]")
+                RenderText.insert(INSERT, "제목 : ")
+                RenderText.insert(INSERT, DataList[i][0])
+                RenderText.insert(INSERT, "\n")
+                RenderText.insert(INSERT, "[")
+                RenderText.insert(INSERT, i + 1)
+                RenderText.insert(INSERT, "]")
+                RenderText.insert(INSERT, "링크 : ")
+                RenderText.insert(INSERT, DataList[i][1])
+                RenderText.insert(INSERT, "\n")
+                RenderText.insert(INSERT, "[")
+                RenderText.insert(INSERT, i + 1)
+                RenderText.insert(INSERT, "]")
+                RenderText.insert(INSERT, "tel : ")
+                RenderText.insert(INSERT, DataList[i][2])
+                RenderText.insert(INSERT, "\n")
+                RenderText.insert(INSERT, "\n")
+
 
 def practice():
     def process():
@@ -116,4 +197,5 @@ InitInputLabel()
 InitSearchButton()
 
 InitSortListBox()
+#change_img()
 window.mainloop()
