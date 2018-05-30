@@ -10,7 +10,7 @@ def search():
 
     encText = urllib.parse.quote("로맨스")
 
-    conn.request("GET", "/v1/search/movie.json?movie&start=1&query="+encText, None,{"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    conn.request("GET", "/v1/search/movie.xml?movie&start=1&query="+encText, None,{"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
     #
     req = conn.getresponse()
     print(req.status, req.reason)
