@@ -123,7 +123,7 @@ def SearchMovie():
             InfoMovie = parseData.childNodes
             row = InfoMovie[0].childNodes
             #parseData.toxml()
-            print(parseData)
+            print(parseString(response_body))
 
             for item in row:
                 print("들어감")
@@ -164,6 +164,8 @@ def SearchMovie():
         RenderText.insert(INSERT, "\n")
         print("중간")
     print("끝")
+
+
 
 def image():
     photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
