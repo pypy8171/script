@@ -7,7 +7,9 @@ import http.client
 import urllib.request
 #from xml.dom.minidom import*
 from xml.dom.minidom import parse, parseString
+import xml.dom.minidom
 from xml.etree import ElementTree
+from xml.etree.ElementTree import parse
 import json
 
 
@@ -109,10 +111,11 @@ def SearchMovie():
                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
         #
     req = conn.getresponse()
-    print(req.status, req.reason)
 
+    print(req.status, req.reason)
     global DataList
     DataList.clear()
+
     if int(req.status) == 200:
         response_body = req.read().decode('utf-8')
         print(response_body)
@@ -123,16 +126,20 @@ def SearchMovie():
             parseData = parseString(response_body)
             InfoMovie = parseData.childNodes
             row = InfoMovie[0].childNodes
-            print(row)
+            print(parseData)
 
             for item in row:
                 print("들어감")
-                # if item.nodeName=="row":
+                #if item.nodeName=="title":
+                    #print("더들어감")
                 subitems = item.childNodes
                 DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue,
-                                     subitems[2].firstChild.nodeValue, subitems[3].firstChild.nodeValue),)
+                                     subitems[2].firstChild.nodeValue, subitems[3].firstChild.nodeValue,
+                                 subitems[4].firstChild.nodeValue, subitems[5].firstChild.nodeValue,subitems[6].firstChild.nodeValue
+                                 ),)
 
                 print("데이터들어감")
+
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
@@ -158,6 +165,13 @@ def SearchMovie():
         RenderText.insert(INSERT, "시간 : ")
         RenderText.insert(INSERT, DataList[i][3])
         RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, DataList[i][4])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, DataList[i][5])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, DataList[i][6])
+        RenderText.insert(INSERT, "\n")
+
         RenderText.insert(INSERT, "\n")
         print("중간")
     print("끝")
