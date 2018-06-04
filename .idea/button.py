@@ -5,13 +5,15 @@ import tkinter.messagebox
 import Movie
 import http.client
 import urllib.request
-#from xml.dom.minidom import*
+import urllib.parse
+import xml.etree.ElementTree as etree
 from xml.dom.minidom import parse, parseString
 import xml.dom.minidom
 from xml.etree import ElementTree
 from xml.etree.ElementTree import parse
 import json
 
+filename = 'movie.xml'
 
 loopFlag =1
 xmlFD = -1
@@ -42,6 +44,7 @@ def InitSearchListBox():
     SearchListBox.insert(3, "배우 이름")
     SearchListBox.pack()
     SearchListBox.place(x=10, y=100)
+    ListBoxScrollbar.config(command=SearchListBox.yview)
 
 def InitSortListBox():
     global SortListBox
@@ -54,6 +57,7 @@ def InitSortListBox():
     SortListBox.insert(2, "평점")
     SortListBox.pack()
     SortListBox.place(x=10, y=240)
+    ListBoxScrollbar.config(command=SortListBox.yview)
 
 def InitInputLabel():
     global InputLabel
@@ -99,6 +103,7 @@ def InitRenderText():
 
 
 
+
 def SearchMovie():
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
@@ -117,64 +122,91 @@ def SearchMovie():
     DataList.clear()
 
     if int(req.status) == 200:
-        response_body = req.read().decode('utf-8')
-        print(response_body)
-        if response_body == None:
-            print("에러")
-        else:
-            print("시작")
-            parseData = parseString(response_body)
-            InfoMovie = parseData.childNodes
-            row = InfoMovie[0].childNodes
-            print(parseData)
+        response_body = req.read()
+        f = open(filename, "wb")
+        f.write(response_body)
+        f.close()
 
-            for item in row:
-                print("들어감")
-                #if item.nodeName=="title":
-                    #print("더들어감")
-                subitems = item.childNodes
-                DataList.append((subitems[0].firstChild.nodeValue, subitems[1].firstChild.nodeValue,
-                                     subitems[2].firstChild.nodeValue, subitems[3].firstChild.nodeValue,
-                                 subitems[4].firstChild.nodeValue, subitems[5].firstChild.nodeValue,subitems[6].firstChild.nodeValue
-                                 ),)
+        tree = etree.parse(filename)
+        root = tree.getroot()
 
-                print("데이터들어감")
+        print(root.findall(''))
+        for a in root.findall('.//item'):
+            print("제목:", a.findtext('title'))
+            print("링크:", a.findtext('link'))
+            print("이미지:", a.findtext('image'))
+            print("부제:", a.findtext('subtitle'))
+            print("년도:", a.findtext('pubDate'))
+            print("감독:", a.findtext('director'))
+            print("배우:", a.findtext('actor'))
+            print("평점:", a.findtext('userRating'))
+
+            DataList.append(a.findtext('title'))
+            DataList.append(a.findtext('link'))
+            DataList.append(a.findtext('image'))
+            DataList.append(a.findtext('subtitle'))
+            DataList.append(a.findtext('pubDate'))
+            DataList.append(a.findtext('director'))
+            DataList.append(a.findtext('actor'))
+            DataList.append(a.findtext('userRating'))
+
+
+
 
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "API : ")
-        RenderText.insert(INSERT, DataList[i][0])
+        RenderText.insert(INSERT, "제목 : ")
+        RenderText.insert(INSERT, DataList[0])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "주소 : ")
-        RenderText.insert(INSERT, DataList[i][1])
+        RenderText.insert(INSERT, "링크 : ")
+        RenderText.insert(INSERT, DataList[1])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "결과 : ")
-        RenderText.insert(INSERT, DataList[i][2])
+        RenderText.insert(INSERT, "이미지 : ")
+        RenderText.insert(INSERT, DataList[2])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "시간 : ")
-        RenderText.insert(INSERT, DataList[i][3])
+        RenderText.insert(INSERT, "부제목 : ")
+        RenderText.insert(INSERT, DataList[3])
         RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, DataList[i][4])
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "년도 : ")
+        RenderText.insert(INSERT, DataList[4])
         RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, DataList[i][5])
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "감독 : ")
+        RenderText.insert(INSERT, DataList[5])
         RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, DataList[i][6])
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "배우 : ")
+        RenderText.insert(INSERT, DataList[6])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "평점 : ")
+        RenderText.insert(INSERT, DataList[7])
+        RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
 
-        RenderText.insert(INSERT, "\n")
-        print("중간")
+
     print("끝")
+
 
 
 
