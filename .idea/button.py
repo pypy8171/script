@@ -27,6 +27,7 @@ window = Tk()
 window.geometry("400x600+750+200")
 DataList = []
 
+
 def InitTopText():
     TempFont = font.Font(window, size=20, weight='bold', family = 'Consolas')
     MainText = Label(window, font = TempFont, text="[영화 검색 App]")
@@ -81,7 +82,7 @@ def SearchButtonAction():
     if iSearchIndex == 0:
         SearchMovie()
     elif iSearchIndex == 1:
-        pass#SearchGoodFoodService()
+        pass#SearchGoodFoodService()
     elif iSearchIndex == 2:
         pass#SearchMarket()
     elif iSearchIndex == 3:
@@ -105,12 +106,13 @@ def InitRenderText():
 
 
 def SearchMovie():
+
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
     conn = http.client.HTTPSConnection(server)
 
-    encText = urllib.parse.quote("로맨스")
+    encText = urllib.parse.quote(InputLabel.get())
 
     conn.request("GET", "/v1/search/movie.xml?movie&start=1&query=" + encText, None,
                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
@@ -151,64 +153,56 @@ def SearchMovie():
             DataList.append(a.findtext('userRating'))
 
 
-
-
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
-        RenderText.insert(INSERT, DataList[0])
+        RenderText.insert(INSERT, DataList[8*(i-1)])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "링크 : ")
-        RenderText.insert(INSERT, DataList[1])
+        RenderText.insert(INSERT, DataList[8*i+1])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "이미지 : ")
-        RenderText.insert(INSERT, DataList[2])
+        RenderText.insert(INSERT, DataList[8*i+2])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "부제목 : ")
-        RenderText.insert(INSERT, DataList[3])
+        RenderText.insert(INSERT, DataList[8*i+3])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "년도 : ")
-        RenderText.insert(INSERT, DataList[4])
+        RenderText.insert(INSERT, DataList[8*i+4])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "감독 : ")
-        RenderText.insert(INSERT, DataList[5])
+        RenderText.insert(INSERT, DataList[8*i+5])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "배우 : ")
-        RenderText.insert(INSERT, DataList[6])
+        RenderText.insert(INSERT, DataList[8*i+6])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "평점 : ")
-        RenderText.insert(INSERT, DataList[7])
+        RenderText.insert(INSERT, DataList[8*i+7])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
-
-
-    print("끝")
-
-
-
 
 
 def image():
