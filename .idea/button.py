@@ -79,8 +79,11 @@ def SearchButtonAction():
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     iSearchIndex = 0
+    iSearchIndex2 = 0
     if iSearchIndex == 0:
         SearchMovie()
+    if iSearchIndex ==1:
+        Sort()
     elif iSearchIndex == 1:
         pass#SearchGoodFoodService()
     elif iSearchIndex == 2:
@@ -106,7 +109,6 @@ def InitRenderText():
 
 
 def SearchMovie():
-
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
@@ -134,6 +136,7 @@ def SearchMovie():
 
         print(root.findall(''))
         for a in root.findall('.//item'):
+            #for j in range(0,30):
             print("제목:", a.findtext('title'))
             print("링크:", a.findtext('link'))
             print("이미지:", a.findtext('image'))
@@ -154,55 +157,60 @@ def SearchMovie():
 
 
     for i in range(len(DataList)):
-        RenderText.insert(INSERT, "[")
+       #for j in range(0, 7):
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
-        RenderText.insert(INSERT, DataList[8*(i-1)])
+        RenderText.insert(INSERT, DataList[8 * i])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "링크 : ")
-        RenderText.insert(INSERT, DataList[8*i+1])
+        RenderText.insert(INSERT, DataList[8 * i + 1])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "이미지 : ")
-        RenderText.insert(INSERT, DataList[8*i+2])
+        RenderText.insert(INSERT, DataList[8 * i + 2])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "부제목 : ")
-        RenderText.insert(INSERT, DataList[8*i+3])
+        RenderText.insert(INSERT, DataList[8 * i + 3])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "년도 : ")
-        RenderText.insert(INSERT, DataList[8*i+4])
+        RenderText.insert(INSERT, DataList[8 * i + 4])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "감독 : ")
-        RenderText.insert(INSERT, DataList[8*i+5])
+        RenderText.insert(INSERT, DataList[8 * i + 5])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "배우 : ")
-        RenderText.insert(INSERT, DataList[8*i+6])
+        RenderText.insert(INSERT, DataList[8 * i + 6])
         RenderText.insert(INSERT, "\n")
+    if DataList[8 + i + 7] < DataList[8 + (i + 1) + 7]:
+        DataList[8 + i + 7], DataList[8 + (i + 1) + 7] = DataList[8 + (i + 1) + 7], DataList[8 + i + 7]
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "평점 : ")
-        RenderText.insert(INSERT, DataList[8*i+7])
+        RenderText.insert(INSERT, DataList[8 * i + 7])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
+
+
+
 
 
 def image():
