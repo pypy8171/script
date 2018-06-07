@@ -19,10 +19,6 @@ loopFlag =1
 xmlFD = -1
 response_body = None
 
-#import json
-#from collections import OrderedDict
-#from pprint import pprint
-
 window = Tk()
 window.geometry("400x600+750+200")
 DataList = []
@@ -73,23 +69,41 @@ def InitSearchButton():
     SearchButton.pack()
     SearchButton.place(x=330, y=190)
 
+def InitSecondSearchButton():
+    TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
+    SecondSearchButton = Button(window, font = TempFont, text="검색",  command=SecondSearchButtonAction)
+    SecondSearchButton.pack()
+    SecondSearchButton.place(x=150, y=250)
+
 #rendertext 만들어야됨
 def SearchButtonAction():
     global SearchListBox
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
-    iSearchIndex = 0
+    iSearchIndex = 0 #SearchListBox.curselection()[0]
     iSearchIndex2 = 0
     if iSearchIndex == 0:
         SearchMovie()
-    if iSearchIndex ==1:
-        Sort()
-    elif iSearchIndex == 1:
-        pass#SearchGoodFoodService()
+    elif iSearchIndex == 2:
+        SearchActor()
     elif iSearchIndex == 2:
         pass#SearchMarket()
     elif iSearchIndex == 3:
         pass#SearchCultural()
+    RenderText.configure(state='disabled')
+
+def SecondSearchButtonAction():
+    global SecondSearchListBox
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    iSecondSearchIndex = 0 #SearchListBox.curselection()[0]
+    iSecondSearchIndex2 = 0
+    if iSecondSearchIndex == 0:
+        #SearchMovie()
+        pass#sort() SearchMovie()
+    elif iSearchIndex == 2:
+        pass#SearchActor()
+
     RenderText.configure(state='disabled')
 
 def InitRenderText():
@@ -106,9 +120,107 @@ def InitRenderText():
     RenderText.configure(state='disabled')
 
 
-
-
 def SearchMovie():
+    server = "openapi.naver.com"
+    client_id = "YoEm7X7SqpQXmWrqJHKn"
+    client_secret = "MgMAZsI63y"
+    conn = http.client.HTTPSConnection(server)
+
+    encText = urllib.parse.quote(InputLabel.get())
+
+    conn.request("GET", "/v1/search/movie.xml?movie&start=1&&query=" + encText, None,
+                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+        #
+    req = conn.getresponse()
+
+    print(req.status, req.reason)
+    global DataList
+    DataList.clear()
+
+    if int(req.status) == 200:
+        response_body = req.read()
+        f = open(filename, "wb")
+        f.write(response_body)
+        f.close()
+
+        tree = etree.parse(filename)
+        root = tree.getroot()
+
+        print(root.findall(''))
+        for a in root.findall('.//item'):
+            #for j in range(0,30):
+            print("제목:", a.findtext('title'))
+            print("링크:", a.findtext('link'))
+            print("이미지:", a.findtext('image'))
+            print("부제:", a.findtext('subtitle'))
+            print("년도:", a.findtext('pubDate'))
+            print("감독:", a.findtext('director'))
+            print("배우:", a.findtext('actor'))
+            print("평점:", a.findtext('userRating'))
+
+            DataList.append(a.findtext('title'))
+            DataList.append(a.findtext('link'))
+            DataList.append(a.findtext('image'))
+            DataList.append(a.findtext('subtitle'))
+            DataList.append(a.findtext('pubDate'))
+            DataList.append(a.findtext('director'))
+            DataList.append(a.findtext('actor'))
+            DataList.append(a.findtext('userRating'))
+
+
+    for i in range(len(DataList)):
+       #for j in range(0, 7):
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "제목 : ")
+        RenderText.insert(INSERT, DataList[8 * i])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "링크 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 1])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "이미지 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 2])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "부제목 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 3])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "년도 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 4])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "감독 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 5])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "배우 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 6])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "평점 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 7])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
+
+
+def Actor():
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
     client_secret = "MgMAZsI63y"
@@ -199,8 +311,6 @@ def SearchMovie():
         RenderText.insert(INSERT, "배우 : ")
         RenderText.insert(INSERT, DataList[8 * i + 6])
         RenderText.insert(INSERT, "\n")
-    if DataList[8 + i + 7] < DataList[8 + (i + 1) + 7]:
-        DataList[8 + i + 7], DataList[8 + (i + 1) + 7] = DataList[8 + (i + 1) + 7], DataList[8 + i + 7]
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
@@ -208,7 +318,6 @@ def SearchMovie():
         RenderText.insert(INSERT, DataList[8 * i + 7])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
-
 
 
 
@@ -257,6 +366,7 @@ InitTopText()
 InitSearchListBox()
 InitInputLabel()
 InitSearchButton()
+InitSecondSearchButton()
 InitSortListBox()
 image()
 window.mainloop()
