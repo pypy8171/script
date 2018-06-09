@@ -320,8 +320,6 @@ def Actor():
         RenderText.insert(INSERT, "\n")
 
 
-
-
 def image():
     photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
     imageLabel = Label(window, image=photo)
