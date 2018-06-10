@@ -251,3 +251,125 @@ def SearchMovie():
         RenderText.insert(INSERT, DataList[8*i+7])
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
+
+
+        ###########################3
+
+
+def InitSearchListBox():
+    global SearchListBox
+    ListBoxScrollbar = Scrollbar(window)
+    ListBoxScrollbar.pack()
+    ListBoxScrollbar.place(x=170, y=100)
+    TempFont = font.Font(window, size=15, weight='bold', family='Consolas')
+    SearchListBox = Listbox(window, font=TempFont, activestyle='none', width=10, height=1, borderwidth=20, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
+    SearchListBox.insert(1, "영화 제목")
+    SearchListBox.pack()
+    SearchListBox.place(x=10, y=100)
+    ListBoxScrollbar.config(command=SearchListBox.yview)
+
+def InitSortListBox():
+    global SortListBox
+    ListBoxScrollbar = Scrollbar(window)
+    ListBoxScrollbar.pack()
+    ListBoxScrollbar.place(x=120, y=240)
+    TempFont = font.Font(window, size=12, weight='bold', family='Consolas')
+    SortListBox = Listbox(window, font=TempFont, activestyle='none', width=8, height=1, borderwidth=10, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
+    SortListBox.insert(1, "제작년도")
+    SortListBox.insert(2, "평점")
+    SortListBox.pack()
+    SortListBox.place(x=10, y=240)
+    ListBoxScrollbar.config(command=SortListBox.yview)
+
+def InitInputLabel():
+    global InputLabel
+    TempFont = font.Font(window, size=15, weight='bold', family = 'Consolas')
+    InputLabel = Entry(window, font = TempFont, width = 26, borderwidth = 12, relief = 'ridge')
+    InputLabel.pack()
+    InputLabel.place(x=10, y=180)
+
+def InitSearchButton():
+    TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
+    SearchButton = Button(window, font = TempFont, text="검색",  command=SearchButtonAction)
+    SearchButton.pack()
+    SearchButton.place(x=330, y=190)
+
+def SearchButtonAction():
+    #global SearchListBox
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    SearchMovie()
+    RenderText.configure(state='disabled')
+
+
+def InitSecondSearchButton():
+    TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
+    SecondSearchButton = Button(window, font = TempFont, text="검색",  command=SecondSearchButtonAction)
+    SecondSearchButton.pack()
+    SecondSearchButton.place(x=150, y=250)
+
+
+def SecondSearchButtonAction():
+    global SecondSearchListBox
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    iSecondSearchIndex = 0 #SearchListBox.curselection()[0]
+    iSecondSearchIndex2 = 0
+    if iSecondSearchIndex == 0:
+        #SearchMovie()
+        pass#sort() SearchMovie()
+    elif iSearchIndex == 2:
+        pass#SearchActor()
+
+    RenderText.configure(state='disabled')
+
+def InitRenderText():
+    global RenderText
+    RenderTextScrollbar = Scrollbar(window)
+    RenderTextScrollbar.pack()
+    RenderTextScrollbar.place(x=375, y=200)
+    TempFont = font.Font(window, size=10, family='Consolas')
+    RenderText = Text(window, width=49, height=15, borderwidth=12, relief='ridge', yscrollcommand=RenderTextScrollbar.set)
+    RenderText.pack()
+    RenderText.place(x=5, y=300)
+    RenderTextScrollbar.config(command=RenderText.yview)
+    RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
+    RenderText.configure(state='disabled')
+
+def image():
+    photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
+    imageLabel = Label(window, image=photo)
+    imageLabel.configure(image=photo)
+    imageLabel.image = photo
+    imageLabel.place(x=210,y=530)
+
+
+
+def practice():
+    def process():
+        movie = (e1.get())
+        e2.insert(0,movie)
+        e2.search(0,movie)
+
+    def reset():
+        e2.delete(0,100)
+        e1.delete(0,100)
+
+    l1 = Label(window, text="검색란 ", font = 'helvetica 12 italic')
+    l2 = Label(window, text="결과란", font = 'helvetica 12 italic')
+    l1.place(x=40,y=250)
+    l2.place(x=40,y=300)
+
+    e1 = Entry(window)
+    e2 = Entry(window)
+    e1.place(x=130,y=250)
+    e2.place(x=130,y=300)
+
+
+    b1 = Button(window, text="검색",command=process)
+    b1.grid(row=0,column=3); b1["bg"]="yellow"
+    b1.place(x=300,y=250)
+
+    b2 = Button(window, text="초기화",command=reset)
+    b2.grid(row=1,column=3); b2["bg"]="yellow"
+    b2.place(x=300,y=300)

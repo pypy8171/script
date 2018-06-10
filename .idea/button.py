@@ -29,12 +29,12 @@ def InitCountrySearchListBox():
     global SearchListBox
     ListBoxScrollbar = Scrollbar(window)
     ListBoxScrollbar.pack()
-    ListBoxScrollbar.place(x=570, y=100)
+    ListBoxScrollbar.place(x=170, y=100)
     TempFont = font.Font(window, size=15, weight='bold', family='Consolas')
     SearchListBox = Listbox(window, font=TempFont, activestyle='none', width=10, height=1, borderwidth=20, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
-    SearchListBox.insert(1, "국가별 영화")
+    SearchListBox.insert(1, "영화 검색")
     SearchListBox.pack()
-    SearchListBox.place(x=410, y=100)
+    SearchListBox.place(x=10, y=100)
     ListBoxScrollbar.config(command=SearchListBox.yview)
 
 def InitCountryInputLabel():
@@ -42,11 +42,12 @@ def InitCountryInputLabel():
     TempFont = font.Font(window, size=15, weight='bold', family = 'Consolas')
     InputLabel = Entry(window, font = TempFont, width = 26, borderwidth = 12, relief = 'ridge')
     InputLabel.pack()
-    InputLabel.place(x=410, y=230)
+    InputLabel.place(x=5, y=190)
 
 def InitCountrySearchButton():
     global country
     TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
+    SearchButton = Button(window, font = TempFont, text="검색",  command=CountrySearchButtonAction)
     SearchButton1 = Button(window, font = TempFont, text="한국",  command=CountrySearchButtonAction1)
     SearchButton2 = Button(window, font = TempFont, text="일본",  command=CountrySearchButtonAction2)
     SearchButton3 = Button(window, font = TempFont, text="미국",  command=CountrySearchButtonAction3)
@@ -55,21 +56,28 @@ def InitCountrySearchButton():
     SearchButton6 = Button(window, font = TempFont, text="영국",  command=CountrySearchButtonAction6)
     SearchButton7 = Button(window, font = TempFont, text="기타",  command=CountrySearchButtonAction7)
 
+    SearchButton.pack()
+    SearchButton.place(x=320, y=200)
     SearchButton1.pack()
-    SearchButton1.place(x=410, y=190)
+    SearchButton1.place(x=10, y=250)
     SearchButton2.pack()
-    SearchButton2.place(x=460, y=190)
+    SearchButton2.place(x=60, y=250)
     SearchButton3.pack()
-    SearchButton3.place(x=510, y=190)
+    SearchButton3.place(x=110, y=250)
     SearchButton4.pack()
-    SearchButton4.place(x=560, y=190)
+    SearchButton4.place(x=160, y=250)
     SearchButton5.pack()
-    SearchButton5.place(x=605, y=190)
+    SearchButton5.place(x=205, y=250)
     SearchButton6.pack()
-    SearchButton6.place(x=670, y=190)
+    SearchButton6.place(x=270, y=250)
     SearchButton7.pack()
-    SearchButton7.place(x=720, y=190)
+    SearchButton7.place(x=320, y=250)
 
+def CountrySearchButtonAction():
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    SearchMovie()
+    RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction1():
     RenderText.configure(state='normal')
@@ -122,7 +130,7 @@ def InitCountryRenderText():
     TempFont = font.Font(window, size=10, family='Consolas')
     RenderText = Text(window, width=49, height=15, borderwidth=12, relief='ridge', yscrollcommand=RenderTextScrollbar.set)
     RenderText.pack()
-    RenderText.place(x=405, y=300)
+    RenderText.place(x=5, y=300)
     RenderTextScrollbar.config(command=RenderText.yview)
     RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
     RenderText.configure(state='disabled')
@@ -171,6 +179,9 @@ def KR():
 
 
     for i in range(len(DataList)):
+        RenderText.insert(INSERT, "< 한국 영화 >")
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
@@ -245,6 +256,9 @@ def JP():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 일본 영화 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -319,6 +333,9 @@ def US():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 미국 영화 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -393,6 +410,9 @@ def HK():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 홍콩 영화 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -468,6 +488,9 @@ def FR():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 프랑스 영화 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -543,6 +566,9 @@ def GB():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 영국 영화 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -618,6 +644,9 @@ def ETC():
             DataList.append(a.findtext('userRating'))
 
         for i in range(len(DataList)):
+            RenderText.insert(INSERT, "< 기타 >")
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -650,99 +679,6 @@ def ETC():
             RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "\n")
 
-
-
-
-##########################################################################################################################################
-
-def InitTopText():
-    TempFont = font.Font(window, size=20, weight='bold', family = 'Consolas')
-    MainText = Label(window, font = TempFont, text="[영화 검색 App]")
-    MainText.place(x=290,y=20)
-
-def InitSearchListBox():
-    global SearchListBox
-    ListBoxScrollbar = Scrollbar(window)
-    ListBoxScrollbar.pack()
-    ListBoxScrollbar.place(x=170, y=100)
-    TempFont = font.Font(window, size=15, weight='bold', family='Consolas')
-    SearchListBox = Listbox(window, font=TempFont, activestyle='none', width=10, height=1, borderwidth=20, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
-    SearchListBox.insert(1, "영화 제목")
-    SearchListBox.pack()
-    SearchListBox.place(x=10, y=100)
-    ListBoxScrollbar.config(command=SearchListBox.yview)
-
-def InitSortListBox():
-    global SortListBox
-    ListBoxScrollbar = Scrollbar(window)
-    ListBoxScrollbar.pack()
-    ListBoxScrollbar.place(x=120, y=240)
-    TempFont = font.Font(window, size=12, weight='bold', family='Consolas')
-    SortListBox = Listbox(window, font=TempFont, activestyle='none', width=8, height=1, borderwidth=10, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
-    SortListBox.insert(1, "제작년도")
-    SortListBox.insert(2, "평점")
-    SortListBox.pack()
-    SortListBox.place(x=10, y=240)
-    ListBoxScrollbar.config(command=SortListBox.yview)
-
-def InitInputLabel():
-    global InputLabel
-    TempFont = font.Font(window, size=15, weight='bold', family = 'Consolas')
-    InputLabel = Entry(window, font = TempFont, width = 26, borderwidth = 12, relief = 'ridge')
-    InputLabel.pack()
-    InputLabel.place(x=10, y=180)
-
-def InitSearchButton():
-    TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
-    SearchButton = Button(window, font = TempFont, text="검색",  command=SearchButtonAction)
-    SearchButton.pack()
-    SearchButton.place(x=330, y=190)
-
-def SearchButtonAction():
-    global SearchListBox
-    RenderText.configure(state='normal')
-    RenderText.delete(0.0, END)
-    iSearchIndex = 0
-    if iSearchIndex == 0:
-        SearchMovie()
-
-    RenderText.configure(state='disabled')
-
-
-def InitSecondSearchButton():
-    TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
-    SecondSearchButton = Button(window, font = TempFont, text="검색",  command=SecondSearchButtonAction)
-    SecondSearchButton.pack()
-    SecondSearchButton.place(x=150, y=250)
-
-
-def SecondSearchButtonAction():
-    global SecondSearchListBox
-    RenderText.configure(state='normal')
-    RenderText.delete(0.0, END)
-    iSecondSearchIndex = 0 #SearchListBox.curselection()[0]
-    iSecondSearchIndex2 = 0
-    if iSecondSearchIndex == 0:
-        #SearchMovie()
-        pass#sort() SearchMovie()
-    elif iSearchIndex == 2:
-        pass#SearchActor()
-
-    RenderText.configure(state='disabled')
-
-def InitRenderText():
-    global RenderText
-    RenderTextScrollbar = Scrollbar(window)
-    RenderTextScrollbar.pack()
-    RenderTextScrollbar.place(x=375, y=200)
-    TempFont = font.Font(window, size=10, family='Consolas')
-    RenderText = Text(window, width=49, height=15, borderwidth=12, relief='ridge', yscrollcommand=RenderTextScrollbar.set)
-    RenderText.pack()
-    RenderText.place(x=5, y=300)
-    RenderTextScrollbar.config(command=RenderText.yview)
-    RenderTextScrollbar.pack(side=RIGHT, fill=BOTH)
-    RenderText.configure(state='disabled')
-
 def SearchMovie():
     server = "openapi.naver.com"
     client_id = "YoEm7X7SqpQXmWrqJHKn"
@@ -753,7 +689,7 @@ def SearchMovie():
 
     conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&&query=" + encText, None,
                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
-        #
+            #
     req = conn.getresponse()
 
     print(req.status, req.reason)
@@ -789,9 +725,11 @@ def SearchMovie():
             DataList.append(a.findtext('actor'))
             DataList.append(a.findtext('userRating'))
 
-
     for i in range(len(DataList)):
-       #for j in range(0, 7):
+        RenderText.insert(INSERT, "< 전체 >")
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
+                # for j in range(0, 7):
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
@@ -842,6 +780,14 @@ def SearchMovie():
         RenderText.insert(INSERT, "\n")
 
 
+##########################################################################################################################################
+
+def InitTopText():
+    TempFont = font.Font(window, size=20, weight='bold', family = 'Consolas')
+    MainText = Label(window, font = TempFont, text="[영화 검색 App]")
+    MainText.place(x=290,y=20)
+
+
 def image():
     photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
     imageLabel = Label(window, image=photo)
@@ -850,47 +796,17 @@ def image():
     imageLabel.place(x=210,y=530)
 
 
-
-def practice():
-    def process():
-        movie = (e1.get())
-        e2.insert(0,movie)
-        e2.search(0,movie)
-
-    def reset():
-        e2.delete(0,100)
-        e1.delete(0,100)
-
-    l1 = Label(window, text="검색란 ", font = 'helvetica 12 italic')
-    l2 = Label(window, text="결과란", font = 'helvetica 12 italic')
-    l1.place(x=40,y=250)
-    l2.place(x=40,y=300)
-
-    e1 = Entry(window)
-    e2 = Entry(window)
-    e1.place(x=130,y=250)
-    e2.place(x=130,y=300)
-
-
-    b1 = Button(window, text="검색",command=process)
-    b1.grid(row=0,column=3); b1["bg"]="yellow"
-    b1.place(x=300,y=250)
-
-    b2 = Button(window, text="초기화",command=reset)
-    b2.grid(row=1,column=3); b2["bg"]="yellow"
-    b2.place(x=300,y=300)
-
 #practice()
-InitRenderText()
+#InitRenderText()
 InitCountryRenderText()
 InitTopText()
-InitSearchListBox()
+#InitSearchListBox()
 InitCountrySearchListBox()
-InitInputLabel()
+#InitInputLabel()
 InitCountryInputLabel()
+#InitSearchButton()
 InitCountrySearchButton()
-InitSearchButton()
-InitSecondSearchButton()
-InitSortListBox()
+#InitSecondSearchButton()
+#InitSortListBox()
 image()
 window.mainloop()
