@@ -67,7 +67,7 @@ def InitCountrySearchButton():
     SearchButton16 = Button(window, font=TempFont, text="2점", command=CountrySearchButtonAction16)
     SearchButton17 = Button(window, font=TempFont, text="1점", command=CountrySearchButtonAction17)
     SearchButton18 = Button(window, font=TempFont, text="0점", command=CountrySearchButtonAction18)
-
+    SearchButton19 = Button(window, font=TempFont, text="1990~2000년", command=CountrySearchButtonAction19)
 
     SearchButton.pack()
     SearchButton.place(x=320, y=200)
@@ -107,7 +107,8 @@ def InitCountrySearchButton():
     SearchButton17.place(x=420, y=450)
     SearchButton18.pack()
     SearchButton18.place(x=420, y=490)
-
+    SearchButton19.pack()
+    SearchButton19.place(x=370, y=50)
 
 def CountrySearchButtonAction():
     RenderText.configure(state='normal')
@@ -258,6 +259,16 @@ def CountrySearchButtonAction18():
     num = 0
     Rating5()
     RenderText.configure(state='disabled')
+
+
+def CountrySearchButtonAction19():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 11
+    SearchYear()
+    RenderText.configure(state='disabled')
+
 
 def InitCountryRenderText():
     global RenderText
@@ -618,6 +629,107 @@ def Rating5():
                 RenderText.insert(INSERT, DataList[i-1])
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
+
+def SearchYear():
+    server = "openapi.naver.com"
+    client_id = "YoEm7X7SqpQXmWrqJHKn"
+    client_secret = "MgMAZsI63y"
+    conn = http.client.HTTPSConnection(server)
+
+    encText = urllib.parse.quote(InputLabel.get())
+
+    conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearform=1990&yearto=2000&&query=" + encText, None,
+                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+            #
+    req = conn.getresponse()
+
+    print(req.status, req.reason)
+    global DataList
+    DataList.clear()
+
+    if int(req.status) == 200:
+        response_body = req.read()
+        f = open(filename, "wb")
+        f.write(response_body)
+        f.close()
+
+        tree = etree.parse(filename)
+        root = tree.getroot()
+
+        print(root.findall(''))
+        for a in root.findall('.//item'):
+            print("제목:", a.findtext('title'))
+            print("링크:", a.findtext('link'))
+            print("이미지:", a.findtext('image'))
+            print("부제:", a.findtext('subtitle'))
+            print("년도:", a.findtext('pubDate'))
+            print("감독:", a.findtext('director'))
+            print("배우:", a.findtext('actor'))
+            print("평점:", a.findtext('userRating'))
+
+            DataList.append(a.findtext('title'))
+            DataList.append(a.findtext('link'))
+            DataList.append(a.findtext('image'))
+            DataList.append(a.findtext('subtitle'))
+            DataList.append(a.findtext('pubDate'))
+            DataList.append(a.findtext('director'))
+            DataList.append(a.findtext('actor'))
+            DataList.append(a.findtext('userRating'))
+
+    RenderText.insert(INSERT, "< 전체 >")
+    for i in range(len(DataList)):
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
+                # for j in range(0, 7):
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "제목 : ")
+        RenderText.insert(INSERT, DataList[8 * i])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "링크 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 1])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "이미지 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 2])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "부제목 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 3])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "년도 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 4])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "감독 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 5])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "배우 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 6])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "[")
+        RenderText.insert(INSERT, i + 1)
+        RenderText.insert(INSERT, "]")
+        RenderText.insert(INSERT, "평점 : ")
+        RenderText.insert(INSERT, DataList[8 * i + 7])
+        RenderText.insert(INSERT, "\n")
+        RenderText.insert(INSERT, "\n")
+
 
 def Rating6():
     server = "openapi.naver.com"
