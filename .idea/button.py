@@ -20,11 +20,10 @@ xmlFD = -1
 response_body = None
 
 window = Tk()
-window.geometry("600x600+750+200")
+window.geometry("600x640+750+200")
 DataList = []
 
-
-
+cnum= 0
 ##################################################################################################################################################################
 
 def InitCountrySearchListBox():
@@ -138,69 +137,96 @@ def InitCountrySearchButton():
     SearchButton28.place(x=470, y=450)
 
 def CountrySearchButtonAction():
+    global cnum
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum = 0
+    image()
     SearchMovie()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction1():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=1
     country =1
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction2():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     country =2
+    cnum=2
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction3():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=3
     country=3
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction4():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=4
     country=4
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction5():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=5
     country=5
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction6():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=6
     country=6
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction7():
+    global cnum
     global country
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
+    cnum=0
     country=7
+    image()
     KR()
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction8():
+    global cnum
+    cnum = 0
     global num
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num=10
@@ -208,6 +234,8 @@ def CountrySearchButtonAction8():
     RenderText.configure(state='disabled')
 
 def CountrySearchButtonAction9():
+    global cnum
+    cnum = 0
     global num
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
@@ -217,6 +245,8 @@ def CountrySearchButtonAction9():
 
 def CountrySearchButtonAction10():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 8
@@ -225,6 +255,8 @@ def CountrySearchButtonAction10():
 
 def CountrySearchButtonAction11():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 7
@@ -233,6 +265,8 @@ def CountrySearchButtonAction11():
 
 def CountrySearchButtonAction12():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 6
@@ -241,6 +275,8 @@ def CountrySearchButtonAction12():
 
 def CountrySearchButtonAction13():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 5
@@ -249,6 +285,8 @@ def CountrySearchButtonAction13():
 
 def CountrySearchButtonAction14():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 4
@@ -257,6 +295,8 @@ def CountrySearchButtonAction14():
 
 def CountrySearchButtonAction15():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 3
@@ -265,6 +305,8 @@ def CountrySearchButtonAction15():
 
 def CountrySearchButtonAction16():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 2
@@ -273,6 +315,8 @@ def CountrySearchButtonAction16():
 
 def CountrySearchButtonAction17():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 1
@@ -281,6 +325,8 @@ def CountrySearchButtonAction17():
 
 def CountrySearchButtonAction18():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 0
@@ -290,6 +336,8 @@ def CountrySearchButtonAction18():
 
 def CountrySearchButtonAction19():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 11
@@ -298,6 +346,8 @@ def CountrySearchButtonAction19():
 
 def CountrySearchButtonAction20():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 12
@@ -306,6 +356,8 @@ def CountrySearchButtonAction20():
 
 def CountrySearchButtonAction21():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 13
@@ -314,6 +366,8 @@ def CountrySearchButtonAction21():
 
 def CountrySearchButtonAction22():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 14
@@ -322,6 +376,8 @@ def CountrySearchButtonAction22():
 
 def CountrySearchButtonAction23():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 15
@@ -330,6 +386,8 @@ def CountrySearchButtonAction23():
 
 def CountrySearchButtonAction24():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 16
@@ -338,6 +396,8 @@ def CountrySearchButtonAction24():
 
 def CountrySearchButtonAction25():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 17
@@ -346,6 +406,8 @@ def CountrySearchButtonAction25():
 
 def CountrySearchButtonAction26():
     global num
+    global cnum
+    cnum = 0
     RenderText.configure(state='normal')
     RenderText.delete(0.0, END)
     num = 18
@@ -614,9 +676,6 @@ def Rating5():
         print(root.findall(''))
         for a in root.findall('.//item'):
             DataList.append(a.findtext('title'))
-            #DataList.append(a.findtext('pubDate'))
-            #DataList.append(a.findtext('director'))
-            #DataList.append(a.findtext('actor'))
             DataList.append(a.findtext('userRating'))
 
     if num ==10:
@@ -836,7 +895,6 @@ def SearchYear():
         if DataList != []:
             RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "\n")
-                # for j in range(0, 7):
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
@@ -888,56 +946,6 @@ def SearchYear():
             RenderText.insert(INSERT, "\n")
 
 
-def Rating6():
-    server = "openapi.naver.com"
-    client_id = "YoEm7X7SqpQXmWrqJHKn"
-    client_secret = "MgMAZsI63y"
-    conn = http.client.HTTPSConnection(server)
-
-    encText = urllib.parse.quote(InputLabel.get())
-
-    conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&&query=" + encText, None,
-                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
-            #
-    req = conn.getresponse()
-
-    print(req.status, req.reason)
-    global DataList
-    DataList.clear()
-
-    if int(req.status) == 200:
-        response_body = req.read()
-        f = open(filename, "wb")
-        f.write(response_body)
-        f.close()
-
-        tree = etree.parse(filename)
-        root = tree.getroot()
-
-        print(root.findall(''))
-        for a in root.findall('.//item'):
-            DataList.append(a.findtext('title'))
-            #DataList.append(a.findtext('pubDate'))
-            #DataList.append(a.findtext('director'))
-            #DataList.append(a.findtext('actor'))
-            DataList.append(a.findtext('userRating'))
-
-    for i in range(len(DataList)):
-        if DataList[i]=='6.00':
-            RenderText.insert(INSERT, "[")
-            RenderText.insert(INSERT, i + 1)
-            RenderText.insert(INSERT, "]")
-            RenderText.insert(INSERT, "제목 : ")
-            RenderText.insert(INSERT, DataList[i-1])
-            RenderText.insert(INSERT, "\n")
-            RenderText.insert(INSERT, "\n")
-
-
-
-
-
-
-
 ##########################################################################################################################################
 
 def InitTopText():
@@ -947,24 +955,55 @@ def InitTopText():
 
 
 def image():
-    photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
-    imageLabel = Label(window, image=photo)
-    imageLabel.configure(image=photo)
-    imageLabel.image = photo
-    imageLabel.place(x=130,y=530)
+    global cnum
 
+    if cnum==1:
+        photo = PhotoImage(file="korea.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==2:
+        photo = PhotoImage(file="japan.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==3:
+        photo = PhotoImage(file="us.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==4:
+        photo = PhotoImage(file="china.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==5:
+        photo = PhotoImage(file="fr.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==6:
+        photo = PhotoImage(file="uk.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
+    elif cnum==0:
+        photo = PhotoImage(file="picture.gif")  # 디폴트 이미지 파일
+        imageLabel = Label(window, image=photo)
+        imageLabel.configure(image=photo)
+        imageLabel.image = photo
+        imageLabel.place(x=130, y=530)
 
-#practice()
-#InitRenderText()
 InitCountryRenderText()
 InitTopText()
-#InitSearchListBox()
 InitCountrySearchListBox()
-#InitInputLabel()
 InitCountryInputLabel()
-#InitSearchButton()
 InitCountrySearchButton()
-#InitSecondSearchButton()
-#InitSortListBox()
 image()
 window.mainloop()
