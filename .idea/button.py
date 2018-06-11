@@ -20,7 +20,7 @@ xmlFD = -1
 response_body = None
 
 window = Tk()
-window.geometry("500x600+750+200")
+window.geometry("600x600+750+200")
 DataList = []
 
 
@@ -67,7 +67,11 @@ def InitCountrySearchButton():
     SearchButton16 = Button(window, font=TempFont, text="2점", command=CountrySearchButtonAction16)
     SearchButton17 = Button(window, font=TempFont, text="1점", command=CountrySearchButtonAction17)
     SearchButton18 = Button(window, font=TempFont, text="0점", command=CountrySearchButtonAction18)
-    SearchButton19 = Button(window, font=TempFont, text="1990~2000년", command=CountrySearchButtonAction19)
+    SearchButton19 = Button(window, font=TempFont, text="2010~2018년", command=CountrySearchButtonAction19)
+    SearchButton20 = Button(window, font=TempFont, text="2000~2009년", command=CountrySearchButtonAction20)
+    SearchButton21 = Button(window, font=TempFont, text="1990~1999년", command=CountrySearchButtonAction21)
+    SearchButton22 = Button(window, font=TempFont, text="1980~1989년", command=CountrySearchButtonAction22)
+    SearchButton23 = Button(window, font=TempFont, text="1970~1979년", command=CountrySearchButtonAction23)
 
     SearchButton.pack()
     SearchButton.place(x=320, y=200)
@@ -108,7 +112,15 @@ def InitCountrySearchButton():
     SearchButton18.pack()
     SearchButton18.place(x=420, y=490)
     SearchButton19.pack()
-    SearchButton19.place(x=370, y=50)
+    SearchButton19.place(x=470, y=90)
+    SearchButton20.pack()
+    SearchButton20.place(x=470, y=130)
+    SearchButton21.pack()
+    SearchButton21.place(x=470, y=170)
+    SearchButton22.pack()
+    SearchButton22.place(x=470, y=210)
+    SearchButton23.pack()
+    SearchButton23.place(x=470, y=250)
 
 def CountrySearchButtonAction():
     RenderText.configure(state='normal')
@@ -269,6 +281,37 @@ def CountrySearchButtonAction19():
     SearchYear()
     RenderText.configure(state='disabled')
 
+def CountrySearchButtonAction20():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 12
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction21():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 13
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction22():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 14
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction23():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 15
+    SearchYear()
+    RenderText.configure(state='disabled')
 
 def InitCountryRenderText():
     global RenderText
@@ -436,7 +479,7 @@ def SearchMovie():
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
-                # for j in range(0, 7):
+        RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
@@ -638,8 +681,25 @@ def SearchYear():
 
     encText = urllib.parse.quote(InputLabel.get())
 
-    conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearform=1990&yearto=2000&&query=" + encText, None,
+    if num==11:
+        conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=2010&yearto=2018&&query=" + encText, None,
                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num==12:
+        conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=2000&yearto=2009&&query=" + encText, None,
+                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 13:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1990&yearto=1999&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 14:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1980&yearto=1989&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 15:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1970&yearto=1979&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+
             #
     req = conn.getresponse()
 
@@ -677,10 +737,21 @@ def SearchYear():
             DataList.append(a.findtext('userRating'))
 
     RenderText.insert(INSERT, "< 전체 >")
+    if num==11:
+        RenderText.insert(INSERT, "< 2010 ~ 2018 > ");
+    if num==12:
+        RenderText.insert(INSERT, "< 2000 ~ 2009 > ");
+    if num==13:
+        RenderText.insert(INSERT, "< 1990 ~ 1999 > ");
+    if num==14:
+        RenderText.insert(INSERT, "< 1980 ~ 1989 > ");
+    if num==15:
+        RenderText.insert(INSERT, "< 1970 ~ 1979 > ");
     for i in range(len(DataList)):
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "\n")
                 # for j in range(0, 7):
+        RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
