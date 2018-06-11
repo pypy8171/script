@@ -36,7 +36,7 @@ def InitCountrySearchListBox():
     SearchListBox = Listbox(window, font=TempFont, activestyle='none', width=10, height=1, borderwidth=20, relief='ridge', yscrollcommand=ListBoxScrollbar.set)
     SearchListBox.insert(1, "영화 검색")
     SearchListBox.pack()
-    SearchListBox.place(x=10, y=100)
+    SearchListBox.place(x=100, y=100)
     ListBoxScrollbar.config(command=SearchListBox.yview)
 
 def InitCountryInputLabel():
@@ -72,6 +72,11 @@ def InitCountrySearchButton():
     SearchButton21 = Button(window, font=TempFont, text="1990~1999년", command=CountrySearchButtonAction21)
     SearchButton22 = Button(window, font=TempFont, text="1980~1989년", command=CountrySearchButtonAction22)
     SearchButton23 = Button(window, font=TempFont, text="1970~1979년", command=CountrySearchButtonAction23)
+    SearchButton24 = Button(window, font=TempFont, text="1960~1969년", command=CountrySearchButtonAction24)
+    SearchButton25 = Button(window, font=TempFont, text="1950~1959년", command=CountrySearchButtonAction25)
+    SearchButton26 = Button(window, font=TempFont, text="1940~1949년", command=CountrySearchButtonAction26)
+    SearchButton27 = Button(window, font=TempFont, text="1930~1939년", command=CountrySearchButtonAction27)
+    SearchButton28 = Button(window, font=TempFont, text="1920~1929년", command=CountrySearchButtonAction28)
 
     SearchButton.pack()
     SearchButton.place(x=320, y=200)
@@ -121,6 +126,16 @@ def InitCountrySearchButton():
     SearchButton22.place(x=470, y=210)
     SearchButton23.pack()
     SearchButton23.place(x=470, y=250)
+    SearchButton24.pack()
+    SearchButton24.place(x=470, y=290)
+    SearchButton25.pack()
+    SearchButton25.place(x=470, y=330)
+    SearchButton26.pack()
+    SearchButton26.place(x=470, y=370)
+    SearchButton27.pack()
+    SearchButton27.place(x=470, y=410)
+    SearchButton28.pack()
+    SearchButton28.place(x=470, y=450)
 
 def CountrySearchButtonAction():
     RenderText.configure(state='normal')
@@ -312,6 +327,47 @@ def CountrySearchButtonAction23():
     num = 15
     SearchYear()
     RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction24():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 16
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction25():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 17
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction26():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 18
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction27():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 19
+    SearchYear()
+    RenderText.configure(state='disabled')
+
+def CountrySearchButtonAction28():
+    global num
+    RenderText.configure(state='normal')
+    RenderText.delete(0.0, END)
+    num = 20
+    SearchYear()
+    RenderText.configure(state='disabled')
+
 
 def InitCountryRenderText():
     global RenderText
@@ -699,6 +755,24 @@ def SearchYear():
         conn.request("GET",
                      "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1970&yearto=1979&&query=" + encText, None,
                      {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num==16:
+        conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1960&yearto=1969&&query=" + encText, None,
+                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num==17:
+        conn.request("GET", "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1950&yearto=1959&&query=" + encText, None,
+                    {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 18:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1940&yearto=1949&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 19:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1930&yearto=1939&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
+    elif num == 20:
+        conn.request("GET",
+                     "/v1/search/movie.xml?movie&display=100&start=1&yearfrom=1920&yearto=1929&&query=" + encText, None,
+                     {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret})
 
             #
     req = conn.getresponse()
@@ -747,59 +821,71 @@ def SearchYear():
         RenderText.insert(INSERT, "< 1980 ~ 1989 > ");
     if num==15:
         RenderText.insert(INSERT, "< 1970 ~ 1979 > ");
+    if num==16:
+        RenderText.insert(INSERT, "< 1960 ~ 1969 > ");
+    if num==17:
+        RenderText.insert(INSERT, "< 1950 ~ 1959 > ");
+    if num==18:
+        RenderText.insert(INSERT, "< 1940 ~ 1949 > ");
+    if num==19:
+        RenderText.insert(INSERT, "< 1930 ~ 1939 > ");
+    if num==20:
+        RenderText.insert(INSERT, "< 1920 ~ 1929 > ");
+
     for i in range(len(DataList)):
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "\n")
+        if DataList != []:
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
                 # for j in range(0, 7):
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "제목 : ")
-        RenderText.insert(INSERT, DataList[8 * i])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "링크 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 1])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "이미지 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 2])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "부제목 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 3])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "년도 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 4])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "감독 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 5])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "배우 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 6])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "[")
-        RenderText.insert(INSERT, i + 1)
-        RenderText.insert(INSERT, "]")
-        RenderText.insert(INSERT, "평점 : ")
-        RenderText.insert(INSERT, DataList[8 * i + 7])
-        RenderText.insert(INSERT, "\n")
-        RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "제목 : ")
+            RenderText.insert(INSERT, DataList[8 * i])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "링크 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 1])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "이미지 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 2])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "부제목 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 3])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "년도 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 4])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "감독 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 5])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "배우 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 6])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "[")
+            RenderText.insert(INSERT, i + 1)
+            RenderText.insert(INSERT, "]")
+            RenderText.insert(INSERT, "평점 : ")
+            RenderText.insert(INSERT, DataList[8 * i + 7])
+            RenderText.insert(INSERT, "\n")
+            RenderText.insert(INSERT, "\n")
 
 
 def Rating6():
@@ -857,7 +943,7 @@ def Rating6():
 def InitTopText():
     TempFont = font.Font(window, size=20, weight='bold', family = 'Consolas')
     MainText = Label(window, font = TempFont, text="[영화 검색 App]")
-    MainText.place(x=140,y=20)
+    MainText.place(x=200,y=20)
 
 
 def image():
@@ -865,7 +951,7 @@ def image():
     imageLabel = Label(window, image=photo)
     imageLabel.configure(image=photo)
     imageLabel.image = photo
-    imageLabel.place(x=60,y=530)
+    imageLabel.place(x=130,y=530)
 
 
 #practice()
