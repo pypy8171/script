@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b81915a-8064-43f4-b7d4-b2eea3712dcb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/button.py" afterPath="$PROJECT_DIR$/.idea/button.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/movie.xml" afterPath="$PROJECT_DIR$/.idea/movie.xml" />
     </list>
@@ -41,9 +40,11 @@
       <file leaf-file-name="button.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/button.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="304">
+              <caret line="651" column="54" lean-forward="true" selection-start-line="651" selection-start-column="54" selection-end-line="651" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -245,7 +246,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -476,9 +477,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/button.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="304">
+          <caret line="651" column="54" lean-forward="true" selection-start-line="651" selection-start-column="54" selection-end-line="651" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

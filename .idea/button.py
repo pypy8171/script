@@ -11,6 +11,7 @@ import xml.dom.minidom
 from xml.etree import ElementTree
 from xml.etree.ElementTree import parse
 import json
+import re
 
 filename = 'movie.xml'
 
@@ -518,7 +519,10 @@ def KR():
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
-        RenderText.insert(INSERT, DataList[5*i])
+        string = str(DataList[5 * i])
+        result = re.sub('[</b>]', '', string)
+
+        RenderText.insert(INSERT, result)
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
@@ -600,7 +604,10 @@ def SearchMovie():
         RenderText.insert(INSERT, i + 1)
         RenderText.insert(INSERT, "]")
         RenderText.insert(INSERT, "제목 : ")
-        RenderText.insert(INSERT, DataList[8 * i])
+        string = str(DataList[8*i])
+        result = re.sub('[</b>]','',string)
+
+        RenderText.insert(INSERT, result)
         RenderText.insert(INSERT, "\n")
         RenderText.insert(INSERT, "[")
         RenderText.insert(INSERT, i + 1)
@@ -683,7 +690,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='10.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -693,7 +702,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='9.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -703,7 +714,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='8.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -713,7 +726,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='7.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -723,7 +738,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='6.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -733,7 +750,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='5.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -743,7 +762,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='4.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -753,7 +774,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='3.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -763,7 +786,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='2.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -773,7 +798,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='1.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i - 1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -783,7 +810,9 @@ def Rating5():
         for i in range(len(DataList)):
             if DataList[i]=='0.00':
                 RenderText.insert(INSERT, "제목 : ")
-                RenderText.insert(INSERT, DataList[i-1])
+                string = str(DataList[i-1])
+                result = re.sub('[</b>]', '', string)
+                RenderText.insert(INSERT, result)
                 RenderText.insert(INSERT, "\n")
                 RenderText.insert(INSERT, "\n")
 
@@ -898,7 +927,10 @@ def SearchYear():
             RenderText.insert(INSERT, i + 1)
             RenderText.insert(INSERT, "]")
             RenderText.insert(INSERT, "제목 : ")
-            RenderText.insert(INSERT, DataList[8 * i])
+            string = str(DataList[8 * i])
+            result = re.sub('[</b>]', '', string)
+
+            RenderText.insert(INSERT, result)
             RenderText.insert(INSERT, "\n")
             RenderText.insert(INSERT, "[")
             RenderText.insert(INSERT, i + 1)
