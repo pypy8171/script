@@ -2,7 +2,6 @@ import sys
 from tkinter import*
 from tkinter import font
 import tkinter.messagebox
-import Movie
 import http.client
 import urllib.request
 import urllib.parse
@@ -47,7 +46,7 @@ def InitCountryInputLabel():
 
 def InitCountrySearchButton():
     TempFont = font.Font(window, size=12, weight='bold', family = 'Consolas')
-    SearchButton = Button(window, font = TempFont, text="검색",  command=CountrySearchButtonAction)
+    SearchButton = Button(window, font = TempFont, text="전체 검색",  command=CountrySearchButtonAction)
     SearchButton1 = Button(window, font = TempFont, text="한국",  command=CountrySearchButtonAction1)
     SearchButton2 = Button(window, font = TempFont, text="일본",  command=CountrySearchButtonAction2)
     SearchButton3 = Button(window, font = TempFont, text="미국",  command=CountrySearchButtonAction3)
